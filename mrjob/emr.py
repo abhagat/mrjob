@@ -642,8 +642,7 @@ class EMRJobRunner(MRJobRunner):
         # check s3_scratch_uri against aws_region if specified
         if self._opts['s3_scratch_uri']:
             bucket_name, _ = parse_s3_uri(self._opts['s3_scratch_uri'])
-            bucket_loc = s3_conn.get_bucket(bucket_name, 
-                                            validate=False).get_location()
+            bucket_loc = s3_conn.get_bucket(bucket_name).get_location()
 
             # make sure they can communicate if both specified
             if (self._aws_region and bucket_loc and

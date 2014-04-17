@@ -140,7 +140,7 @@ class S3Filesystem(Filesystem):
         s3_conn = self.make_s3_conn()
         bucket_name, key_name = parse_s3_uri(uri)
 
-        bucket = s3_conn.get_bucket(bucket_name, validate=False)
+        bucket = s3_conn.get_bucket(bucket_name)
         for key in bucket.list(key_name):
             yield s3_key_to_uri(key)
 
@@ -241,7 +241,7 @@ class S3Filesystem(Filesystem):
         bucket_name, key_name = parse_s3_uri(uri)
 
         try:
-            bucket = s3_conn.get_bucket(bucket_name, validate=False)
+            bucket = s3_conn.get_bucket(bucket_name)
         except boto.exception.S3ResponseError, e:
             if e.status != 404:
                 raise e
